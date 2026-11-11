@@ -107,5 +107,5 @@ function resetTyping(){clearInterval(typingTimer);typingTimer=null;typingStarted
 document.getElementById('startTyping').addEventListener('click',()=>{resetTyping();typingStarted=true;typingStart=Date.now();typingTimer=setInterval(updateTyping,500);typingInput.focus();});
 typingInput.addEventListener('input',()=>{if(typingStarted){updateTyping();if(typingInput.value===promptText){clearInterval(typingTimer);typingTimer=null;typingStarted=false;updateTyping();alert('Test complete!');}}});
 document.getElementById('resetTyping').addEventListener('click',resetTyping);
-\n</script>
+</script>
 </body></html>
