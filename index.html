@@ -42,7 +42,7 @@ button:hover{filter:brightness(1.07);transform:translateY(-1px)}button:disabled{
 
 .tool-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
 .tool-grid a{padding:13px;background:#edf3fb;border:1px solid #d6e2f0;border-radius:9px;color:#174f78;text-decoration:none;font-weight:700;text-align:center}
-.tool-grid a:hover{background:#e0ecfa}
+.tool-grid a:hover{filter:brightness(.96);transform:translateY(-1px)}.tool-grid a:nth-child(1){background:#e6f4ff;border-color:#9bcdf4;color:#075985}.tool-grid a:nth-child(2){background:#e9f8ef;border-color:#a8dfba;color:#166534}.tool-grid a:nth-child(3){background:#fff4e5;border-color:#f2c98d;color:#9a3412}.tool-grid a:nth-child(4){background:#f3eaff;border-color:#cbb0ef;color:#6b21a8}.tool-grid a:nth-child(5){background:#fff0f1;border-color:#f2b7bf;color:#9f1239}.tool-grid a:nth-child(6){background:#e7f7f5;border-color:#9edbd2;color:#115e59}.tool-grid a:nth-child(7){background:#eef2ff;border-color:#b7c4fa;color:#3730a3}.brand{text-decoration:none;color:inherit}.brand:hover{opacity:.94}nav #homeNav{display:inline-block;background:#1769aa;color:white;padding:8px 15px;border-radius:8px}
 .keyboard{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:6px;direction:rtl}
 .keyboard button{padding:9px 3px;background:#eaf1fb;color:#163e60;border:1px solid #cbd9ea;font-size:20px}
 .stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
@@ -51,19 +51,19 @@ button:hover{filter:brightness(1.07);transform:translateY(-1px)}button:disabled{
 .typing-prompt{height:auto;min-height:100px;max-height:160px}
 #typingInput{height:150px}
 @media(max-width:650px){.tool-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.keyboard{grid-template-columns:repeat(5,minmax(0,1fr))}}
-footer{text-align:center;color:#66717d;padding:10px 15px 30px}.hidden{display:none!important}
+footer{text-align:center;color:#66717d;padding:10px 15px 30px}.hidden{display:none!important}.view-hidden{display:none!important}
 @media(max-width:850px){.page-layout{grid-template-columns:1fr}.sidebar{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.ad-slot,.sidebar-card{margin-bottom:0}}
 @media(max-width:560px){.brand{gap:9px}.brand img{width:52px;height:52px}header h1{font-size:24px}.card{padding:15px}textarea{height:340px;font-size:19px}.preview{font-size:20px}.buttons button{flex:1 1 100%}.sidebar{grid-template-columns:1fr}nav a{display:inline-block;margin:5px}}
 </style>
 </head>
 <body>
-<header><div class="brand"><img src="logo.svg" alt="UrduDigitalHub logo"><div><h1>UrduDigitalHub</h1><p>Urdu Digital Tools & Typing Platform</p></div></div></header>
-<nav><a href="index.html">Home</a> | <a href="#allTools">All Tools</a> | <a href="about.html">About Us</a> | <a href="contact.html">Contact Us</a> | <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms &amp; Conditions</a></nav>
+<header><a class="brand" href="index.html" aria-label="UrduDigitalHub Home"><img src="logo.svg" alt="UrduDigitalHub logo"><div><h1>UrduDigitalHub</h1><p>Urdu Digital Tools & Typing Platform</p></div></a></header>
+<nav><a href="index.html" id="homeNav">⌂ Home</a> | <a href="#allTools" id="allToolsNav">All Tools</a> | <a href="about.html">About Us</a> | <a href="contact.html">Contact Us</a> | <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms &amp; Conditions</a></nav>
 <div class="page-layout"><main><section class="card" id="allTools"><h2>Urdu Online Tools</h2><p class="note">Neeche diye gaye tamam tools isi website par istemal karein.</p><div class="tool-grid">
-<a href="#urduKeyboard">Urdu Keyboard</a><a href="#typingTest">Typing Practice & Speed Test</a><a href="#typingTest">Typing Accuracy Test</a><a href="#wordCounter">Word Counter</a><a href="#textCleaner">Text Cleaner</a><a href="#reverseTool">InPage to Unicode</a><a href="#converter">Unicode to InPage</a>
+<a href="#urduKeyboard" data-tool="urduKeyboard">Urdu Keyboard</a><a href="#typingTest" data-tool="typingTest">Typing Practice & Speed Test</a><a href="#typingTest" data-tool="typingTest">Typing Accuracy Test</a><a href="#wordCounter" data-tool="wordCounter">Word Counter</a><a href="#textCleaner" data-tool="textCleaner">Text Cleaner</a><a href="#reverseTool" data-tool="reverseTool">InPage to Unicode</a><a href="#converter" data-tool="converter">Unicode to InPage</a>
 </div></section>
 <section class="card" id="converter"><label for="urduText">اپنا اردو Unicode متن یہاں پیسٹ کریں</label><textarea id="urduText" maxlength="11500" placeholder="Yahan apna Urdu Unicode text paste karein..."></textarea><div class="buttons"><button class="convert" id="convertButton" type="button">Convert</button><button class="clear" id="clearButton" type="button">Clear Text</button></div><p class="note">Apna Unicode Urdu text upar paste karein aur Convert button dabayein. Aapka likha hua text convert hone ke baad bhi box mein rahega.</p></section>
-<section class="card"><label>Preview Font</label><div class="preview" id="preview">Aapka Urdu text yahan Jameel Noori Nastaleeq style mein nazar aayega.</div><p class="note">Preview ke liye Jameel Noori Nastaleeq preferred hai. Agar font installed nahi, to fallback font nazar aa sakta hai.</p></section>
+<section class="card" id="previewCard"><label>Preview Font</label><div class="preview" id="preview">Aapka Urdu text yahan Jameel Noori Nastaleeq style mein nazar aayega.</div><p class="note">Preview ke liye Jameel Noori Nastaleeq preferred hai. Agar font installed nahi, to fallback font nazar aa sakta hai.</p></section>
 <section class="card hidden" id="resultCard"><label for="inpageOutput">Converted InPage Text</label><textarea id="inpageOutput" readonly spellcheck="false" placeholder="Converted InPage text yahan nazar aayega..."></textarea><div class="buttons"><button class="copy" id="copyButton" type="button">Copy InPage Text</button><button class="download" id="downloadButton" type="button">Download File</button></div><p class="note">File UTF-16 format mein download hoti hai. InPage mein paste karne ke baad text check kar lein.</p></section>
 <section class="card" id="moreCard"><label for="moreText">Convert More Text</label><textarea id="moreText" maxlength="11500" style="height:260px" placeholder="Mazeed Unicode text yahan paste karein"></textarea><div class="buttons"><button class="convert" id="moreConvertButton" type="button">Convert More Text</button></div><p class="note">Mazeed text pehle result ke aakhir mein add ho jayega.</p></section>
 
@@ -76,7 +76,7 @@ footer{text-align:center;color:#66717d;padding:10px 15px 30px}.hidden{display:no
 \n<section class="card"><h2>About UrduDigitalHub</h2><p class="note">UrduDigitalHub ka maqsad Urdu users ko asaan, tez aur muft online tools dena hai. Filhal yahan Unicode to InPage converter mojood hai. Mazeed Urdu typing aur text tools marhala-war shamil kiye jayenge. Converter text aapke browser mein process karta hai.</p></section>
 </main><aside class="sidebar">
 <div class="ad-slot"><strong>ADVERTISEMENT</strong><span>Ad space 1</span></div><div class="ad-slot"><strong>ADVERTISEMENT</strong><span>Ad space 2</span></div><div class="ad-slot"><strong>ADVERTISEMENT</strong><span>Ad space 3</span></div>
-<div class="sidebar-card"><h2>Quick Tools</h2><div class="social-links"><a href="#urduKeyboard">Urdu Keyboard</a><a href="#typingTest">Typing Practice</a><a href="#wordCounter">Word Counter</a><a href="#textCleaner">Text Cleaner</a><a href="#reverseTool">InPage to Unicode</a></div></div>
+<div class="sidebar-card"><h2>Quick Tools</h2><div class="social-links"><a href="#urduKeyboard" data-tool="urduKeyboard">Urdu Keyboard</a><a href="#typingTest" data-tool="typingTest">Typing Practice</a><a href="#wordCounter" data-tool="wordCounter">Word Counter</a><a href="#textCleaner" data-tool="textCleaner">Text Cleaner</a><a href="#reverseTool" data-tool="reverseTool">InPage to Unicode</a></div></div>
 </aside></div>
 <footer>© 2026 UrduDigitalHub. All rights reserved.</footer>
 <script>
@@ -112,5 +112,38 @@ function resetTyping(){clearInterval(typingTimer);typingTimer=null;typingStarted
 document.getElementById('startTyping').addEventListener('click',()=>{resetTyping();typingStarted=true;typingStart=Date.now();typingTimer=setInterval(updateTyping,500);typingInput.focus();});
 typingInput.addEventListener('input',()=>{if(typingStarted){updateTyping();if(typingInput.value===promptText){clearInterval(typingTimer);typingTimer=null;typingStarted=false;updateTyping();alert('Test complete!');}}});
 document.getElementById('resetTyping').addEventListener('click',resetTyping);
+
+// Tool navigation: show only the selected tool; Home restores the complete landing page.
+(function(){
+ const main=document.querySelector('main'), sidebar=document.querySelector('.sidebar');
+ const sections=[...main.querySelectorAll(':scope > section')];
+ const groups={
+  converter:['converter','previewCard','resultCard','moreCard'],
+  urduKeyboard:['urduKeyboard'],
+  typingTest:['typingTest'],
+  wordCounter:['wordCounter'],
+  textCleaner:['textCleaner'],
+  reverseTool:['reverseTool']
+ };
+ function showHome(){
+  sections.forEach(s=>s.classList.remove('view-hidden'));
+  if(sidebar) sidebar.classList.remove('view-hidden');
+  document.getElementById('allTools')?.scrollIntoView({behavior:'smooth',block:'start'});
+  history.replaceState(null,'',location.pathname);
+ }
+ function showTool(id){
+  const wanted=groups[id]; if(!wanted)return;
+  sections.forEach(s=>s.classList.toggle('view-hidden',!wanted.includes(s.id)));
+  if(sidebar)sidebar.classList.add('view-hidden');
+  const first=document.getElementById(wanted[0]);
+  if(first)first.scrollIntoView({behavior:'smooth',block:'start'});
+  history.replaceState(null,'','#'+id);
+ }
+ document.querySelectorAll('[data-tool]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();showTool(a.dataset.tool);}));
+ document.getElementById('homeNav')?.addEventListener('click',e=>{e.preventDefault();showHome();window.scrollTo({top:0,behavior:'smooth'});});
+ document.querySelector('.brand')?.addEventListener('click',e=>{e.preventDefault();showHome();window.scrollTo({top:0,behavior:'smooth'});});
+ document.getElementById('allToolsNav')?.addEventListener('click',e=>{e.preventDefault();showHome();});
+ if(location.hash && groups[location.hash.slice(1)])showTool(location.hash.slice(1));
+})();
 </script>
 </body></html>
