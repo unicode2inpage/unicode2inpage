@@ -51,7 +51,7 @@ button:hover{filter:brightness(1.07);transform:translateY(-1px)}button:disabled{
 .typing-prompt{height:auto;min-height:100px;max-height:160px}
 #typingInput{height:150px}
 @media(max-width:650px){.tool-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.keyboard{grid-template-columns:repeat(5,minmax(0,1fr))}}
-footer{text-align:center;color:#66717d;padding:10px 15px 30px}.hidden{display:none!important}.view-hidden{display:none!important}
+footer{text-align:center;color:#66717d;padding:10px 15px 30px}.hidden{display:none!important}.tool-closed{display:none!important}
 @media(max-width:850px){.page-layout{grid-template-columns:1fr}.sidebar{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.ad-slot,.sidebar-card{margin-bottom:0}}
 @media(max-width:560px){.brand{gap:9px}.brand img{width:52px;height:52px}header h1{font-size:24px}.card{padding:15px}textarea{height:340px;font-size:19px}.preview{font-size:20px}.buttons button{flex:1 1 100%}.sidebar{grid-template-columns:1fr}nav a{display:inline-block;margin:5px}}
 </style>
@@ -113,10 +113,10 @@ document.getElementById('startTyping').addEventListener('click',()=>{resetTyping
 typingInput.addEventListener('input',()=>{if(typingStarted){updateTyping();if(typingInput.value===promptText){clearInterval(typingTimer);typingTimer=null;typingStarted=false;updateTyping();alert('Test complete!');}}});
 document.getElementById('resetTyping').addEventListener('click',resetTyping);
 
-// Tool navigation: show only the selected tool; Home restores the complete landing page.
+// Tool panels stay closed on the homepage. Opening a tool keeps the homepage and reveals only that tool.
 (function(){
- const main=document.querySelector('main'), sidebar=document.querySelector('.sidebar');
- const sections=[...main.querySelectorAll(':scope > section')];
+ const toolIds=['converter','previewCard','resultCard','moreCard','urduKeyboard','typingTest','wordCounter','textCleaner','reverseTool'];
+ const toolPanels=toolIds.map(id=>document.getElementById(id)).filter(Boolean);
  const groups={
   converter:['converter','previewCard','resultCard','moreCard'],
   urduKeyboard:['urduKeyboard'],
@@ -125,25 +125,31 @@ document.getElementById('resetTyping').addEventListener('click',resetTyping);
   textCleaner:['textCleaner'],
   reverseTool:['reverseTool']
  };
- function showHome(){
-  sections.forEach(s=>s.classList.remove('view-hidden'));
-  if(sidebar) sidebar.classList.remove('view-hidden');
-  document.getElementById('allTools')?.scrollIntoView({behavior:'smooth',block:'start'});
+ function closeTools(){
+  toolPanels.forEach(panel=>panel.classList.add('tool-closed'));
   history.replaceState(null,'',location.pathname);
  }
- function showTool(id){
+ function openTool(id){
   const wanted=groups[id]; if(!wanted)return;
-  sections.forEach(s=>s.classList.toggle('view-hidden',!wanted.includes(s.id)));
-  if(sidebar)sidebar.classList.add('view-hidden');
-  const first=document.getElementById(wanted[0]);
-  if(first)first.scrollIntoView({behavior:'smooth',block:'start'});
+  toolPanels.forEach(panel=>panel.classList.toggle('tool-closed',!wanted.includes(panel.id)));
   history.replaceState(null,'','#'+id);
+  const panel=document.getElementById(wanted[0]);
+  if(panel)panel.scrollIntoView({behavior:'smooth',block:'start'});
  }
- document.querySelectorAll('[data-tool]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();showTool(a.dataset.tool);}));
- document.getElementById('homeNav')?.addEventListener('click',e=>{e.preventDefault();showHome();window.scrollTo({top:0,behavior:'smooth'});});
- document.querySelector('.brand')?.addEventListener('click',e=>{e.preventDefault();showHome();window.scrollTo({top:0,behavior:'smooth'});});
- document.getElementById('allToolsNav')?.addEventListener('click',e=>{e.preventDefault();showHome();});
- if(location.hash && groups[location.hash.slice(1)])showTool(location.hash.slice(1));
-})();
-</script>
+ document.querySelectorAll('[data-tool]').forEach(link=>link.addEventListener('click',event=>{
+  event.preventDefault();openTool(link.dataset.tool);
+ }));
+ document.getElementById('homeNav')?.addEventListener('click',event=>{
+  event.preventDefault();closeTools();window.scrollTo({top:0,behavior:'smooth'});
+ });
+ document.querySelector('.brand')?.addEventListener('click',event=>{
+  event.preventDefault();closeTools();window.scrollTo({top:0,behavior:'smooth'});
+ });
+ document.getElementById('allToolsNav')?.addEventListener('click',event=>{
+  event.preventDefault();closeTools();document.getElementById('allTools')?.scrollIntoView({behavior:'smooth'});
+ });
+ closeTools();
+ const requested=location.hash.slice(1);
+ if(groups[requested])openTool(requested);
+})();</script>
 </body></html>
