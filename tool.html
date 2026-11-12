@@ -322,57 +322,18 @@ document.getElementById('resetTyping').addEventListener('click',resetTyping);
   catch(error){output.focus();output.select();alert('Press Ctrl+C to copy.');}
  });
 })();
-// Tool panels stay closed on the homepage. Opening a tool keeps the homepage and reveals only that tool.
-(function(){
- const toolIds=['converter','previewCard','resultCard','moreCard','urduKeyboard','typingTest','wordCounter','textCleaner','reverseTool','englishProofreader'];
- const toolPanels=toolIds.map(id=>document.getElementById(id)).filter(Boolean);
- const groups={
-  converter:['converter','previewCard','resultCard','moreCard'],
-  urduKeyboard:['urduKeyboard'],
-  typingTest:['typingTest'],
-  wordCounter:['wordCounter'],
-  textCleaner:['textCleaner'],
-  reverseTool:['reverseTool'],
-  englishProofreader:['englishProofreader']
- };
- function closeTools(){
-  toolPanels.forEach(panel=>panel.classList.add('tool-closed'));
-  history.replaceState(null,'',location.pathname);
- }
- function openTool(id){
-  const wanted=groups[id]; if(!wanted)return;
-  toolPanels.forEach(panel=>panel.classList.toggle('tool-closed',
-   !wanted.includes(panel.id)));
-  history.replaceState(null,'','#'+id);
-  const panel=document.getElementById(wanted[0]);
-  if(panel)panel.scrollIntoView({behavior:'smooth',block:'start'});
- }
- document.querySelectorAll('[data-tool]').forEach(link=>link.addEventListener('click',event=>{
-  event.preventDefault();openTool(link.dataset.tool);
- }));
- document.getElementById('homeNav')?.addEventListener('click',event=>{
-  event.preventDefault();closeTools();window.scrollTo({top:0,behavior:'smooth'});
- });
- document.querySelector('.brand')?.addEventListener('click',event=>{
-  event.preventDefault();closeTools();window.scrollTo({top:0,behavior:'smooth'});
- });
- document.getElementById('allToolsNav')?.addEventListener('click',event=>{
-  event.preventDefault();closeTools();document.getElementById('allTools')?.scrollIntoView({behavior:'smooth'});
- });
- closeTools();
- const requested=location.hash.slice(1);
- if(groups[requested])openTool(requested);
-})();</script>
+
 
 <script>
 (function(){
  const names={converter:'Unicode to InPage Converter',urduKeyboard:'Urdu Online Keyboard',typingTest:'Urdu Typing Practice & Speed Test',wordCounter:'Urdu Word & Character Counter',textCleaner:'Urdu Text Cleaner',reverseTool:'InPage to Unicode Converter',englishProofreader:'English Paragraph Grammar & Spell Checker'};
- const requested=new URLSearchParams(location.search).get('tool')||'wordCounter';
- const allowed=Object.keys(names);
- const selected=allowed.includes(requested)?requested:'wordCounter';
+ const params=new URLSearchParams(window.location.search);
+ const requested=params.get('tool')||'wordCounter';
+ const selected=Object.prototype.hasOwnProperty.call(names,requested)?requested:'wordCounter';
  document.body.classList.add('tool-page');
  const selectedIds=selected==='converter'?['converter','previewCard','resultCard']:[selected];
- document.querySelectorAll('main>.tool-panel').forEach(panel=>{
+ document.querySelectorAll('main .tool-panel').forEach(panel=>{
+   panel.classList.remove('tool-closed');
    panel.classList.toggle('active-tool',selectedIds.includes(panel.id));
  });
  document.title=names[selected]+' | UrduDigitalHub';
