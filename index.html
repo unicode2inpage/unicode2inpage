@@ -234,8 +234,7 @@ document.getElementById('resetTyping').addEventListener('click',resetTyping);
   throught:'through', graet:'great', does'nt:"doesn't", didnt:"didn't",
   wouldnt:"wouldn't", cant:"can't", wont:"won't", isnt:"isn't"
  };
- const typoRegexes=Object.keys(spelling).map(w=>new RegExp('\\b'+w.replace(/[.*+?^${}()|[\\]\\]/g,'\\
-// Tool panels stay closed on the homepage.')+'\\b','gi'));
+ const typoRegexes=Object.keys(spelling).map(w=>new RegExp('\\b'+w+'\\b','gi'));
  const highlightRules=[
   ...typoRegexes,
   /\b(\w+)\s+\1\b/gi,
@@ -256,25 +255,24 @@ document.getElementById('resetTyping').addEventListener('click',resetTyping);
   let v=text,changes=0;
   function sub(re,repl){v=v.replace(re,(...args)=>{changes++;return typeof repl==='function'?repl(...args):repl;});}
   for(const [wrong,right] of Object.entries(spelling)){
-   const re=new RegExp('\\b'+wrong.replace(/[.*+?^${}()|[\\]\\]/g,'\\
-// Tool panels stay closed on the homepage.')+'\\b','gi');
+   const re=new RegExp('\\b'+wrong+'\\b','gi');
    sub(re,m=>preserveCase(m,right));
   }
-  sub(/\b(\w+)\s+\1\b/gi,(m,w)=>{changes++;return w;});
+  sub(/\\b(\\w+)\\s+\\1\\b/gi,(m,w)=>w);
   sub(/\bi\b/g,'I');
   sub(/\bI\s+is\b/gi,'I am');
   sub(/\bI\s+are\b/gi,'I am');
-  sub(/\b(he|she|it)\s+are\b/gi,'$1 is');
-  sub(/\b(they|we|you)\s+is\b/gi,'$1 are');
+  sub(/\\b(he|she|it)\\s+are\\b/gi,(m,subject)=>subject+' is');
+  sub(/\\b(they|we|you)\\s+is\\b/gi,(m,subject)=>subject+' are');
   sub(/\bI\s+has\b/gi,'I have');
-  sub(/\b(he|she|it)\s+have\b/gi,'$1 has');
+  sub(/\\b(he|she|it)\\s+have\\b/gi,(m,subject)=>subject+' has');
   sub(/\bdoesn't\s+has\b/gi,"doesn't have");
   const irregular={went:'go',ate:'eat',saw:'see',wrote:'write',came:'come',took:'take',did:'do'};
   sub(/\bdidn't\s+(went|ate|saw|wrote|came|took|did)\b/gi,(m,verb)=>"didn't "+irregular[verb.toLowerCase()]);
   sub(/\ba\s+(?=[aeiou][a-z])/gi,'an ');
   sub(/\ban\s+(?=university|unicorn|uniform|useful|user|European)\b/gi,'a ');
   sub(/[ \t]{2,}/g,' ');
-  sub(/\s+([,.!?;:])/g,'$1');
+  sub(/\\s+([,.!?;:])/g,(m,punct)=>punct);
   sub(/([,.!?;:])(?=[A-Za-z])/g,'$1 ');
   // Capitalize the first letter of each sentence.
   sub(/(^|[.!?]\s+)([a-z])/g,(m,prefix,letter)=>prefix+letter.toUpperCase());
