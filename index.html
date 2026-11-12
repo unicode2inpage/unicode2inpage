@@ -54,6 +54,22 @@ button:hover{filter:brightness(1.07);transform:translateY(-1px)}button:disabled{
 footer{text-align:center;color:#66717d;padding:10px 15px 30px}.hidden{display:none!important}.tool-closed{display:none!important}
 @media(max-width:850px){.page-layout{grid-template-columns:1fr}.sidebar{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.ad-slot,.sidebar-card{margin-bottom:0}}
 @media(max-width:560px){.brand{gap:9px}.brand img{width:52px;height:52px}header h1{font-size:24px}.card{padding:15px}textarea{height:340px;font-size:19px}.preview{font-size:20px}.buttons button{flex:1 1 100%}.sidebar{grid-template-columns:1fr}nav a{display:inline-block;margin:5px}}
+
+/* Urdu Lafzon Ka Safar mini game */
+.game-zone{border:1px solid #d5c8f4;background:linear-gradient(145deg,#f8f5ff,#eef5ff);min-height:250px}
+.game-zone h2{margin:0 0 8px;color:#51308f;font-size:19px}
+.game-intro{font-size:13px;color:#626579;line-height:1.7;margin:0 0 10px}
+.game-stats{display:flex;justify-content:space-between;gap:8px;margin:8px 0}
+.game-stats span{background:#fff;border:1px solid #e2d9f5;border-radius:8px;padding:6px 9px;font-size:12px;color:#50377d}
+.game-clue{background:#fff;border-radius:9px;padding:9px;text-align:center;color:#364152;font-size:14px;margin:8px 0}
+.game-letters{direction:rtl;text-align:center;font-size:25px;font-weight:800;letter-spacing:3px;color:#542f91;background:#fff;border:1px dashed #b7a1e3;border-radius:10px;padding:10px;margin:8px 0}
+.game-answer{height:46px;min-height:46px;max-height:46px;font-size:19px;line-height:1.5;background:#fff;text-align:center;direction:rtl}
+.game-message{min-height:25px;font-size:13px;text-align:center;font-weight:700;margin:7px 0;color:#4b5563}
+.game-buttons{display:flex;gap:8px;margin-top:8px}
+.game-buttons button{flex:1;padding:10px 8px;font-size:13px}
+.game-check{background:#6d35c8}.game-next{background:#1769aa}
+@media(max-width:850px){.game-zone{grid-column:1/-1}}
+
 </style>
 </head>
 <body>
@@ -77,7 +93,17 @@ footer{text-align:center;color:#66717d;padding:10px 15px 30px}.hidden{display:no
 </main><aside class="sidebar">
 <div class="ad-slot"><strong>ADVERTISEMENT</strong><span>Ad space 1</span></div><div class="ad-slot"><strong>ADVERTISEMENT</strong><span>Ad space 2</span></div><div class="ad-slot"><strong>ADVERTISEMENT</strong><span>Ad space 3</span></div>
 <div class="sidebar-card"><h2>Quick Tools</h2><div class="social-links"><a href="#urduKeyboard" data-tool="urduKeyboard">Urdu Keyboard</a><a href="#typingTest" data-tool="typingTest">Typing Practice</a><a href="#wordCounter" data-tool="wordCounter">Word Counter</a><a href="#textCleaner" data-tool="textCleaner">Text Cleaner</a><a href="#reverseTool" data-tool="reverseTool">InPage to Unicode</a></div></div>
-</aside></div>
+
+<div class="sidebar-card game-zone" id="urduWordGame">
+<h2>🎮 Urdu Lafzon Ka Safar</h2>
+<p class="game-intro">Bikhre hue Urdu haroof ko jor kar sahi lafz banayein. Har sahi jawab par 10 points!</p>
+<div class="game-stats"><span id="gameLevel">Level: 1/10</span><span id="gameScore">Score: 0</span></div>
+<div class="game-clue" id="gameClue">Ishara: Jis mein hum parhte hain</div>
+<div class="game-letters" id="gameLetters">ب ا ت ک</div>
+<input class="game-answer" id="gameAnswer" type="text" maxlength="20" placeholder="Sahi Urdu lafz likhein">
+<div class="game-message" id="gameMessage" aria-live="polite">Haroof ko jor kar jawab likhein.</div>
+<div class="game-buttons"><button class="game-check" id="gameCheck" type="button">Jawab Check</button><button class="game-next" id="gameNext" type="button" disabled>Agla Lafz</button></div>
+</div></aside></div>
 <footer>© 2026 UrduDigitalHub. All rights reserved.</footer>
 <script>
 const input=document.getElementById('urduText'),preview=document.getElementById('preview'),output=document.getElementById('inpageOutput'),resultCard=document.getElementById('resultCard'),moreText=document.getElementById('moreText');
@@ -113,6 +139,61 @@ document.getElementById('startTyping').addEventListener('click',()=>{resetTyping
 typingInput.addEventListener('input',()=>{if(typingStarted){updateTyping();if(typingInput.value===promptText){clearInterval(typingTimer);typingTimer=null;typingStarted=false;updateTyping();alert('Test complete!');}}});
 document.getElementById('resetTyping').addEventListener('click',resetTyping);
 
+
+/* Urdu Lafzon Ka Safar */
+(function(){
+ const puzzles=[
+  {word:'کتاب',clue:'Ishara: Jis mein hum parhte hain'},
+  {word:'قلم',clue:'Ishara: Likhne ke kaam aata hai'},
+  {word:'پھول',clue:'Ishara: Khushboo aur rang wala pauda ka hissa'},
+  {word:'پانی',clue:'Ishara: Zindagi ke liye zaroori mashroob'},
+  {word:'چاند',clue:'Ishara: Raat ko aasman mein chamakta hai'},
+  {word:'درخت',clue:'Ishara: Jis par patte aur shaakhein hoti hain'},
+  {word:'دوست',clue:'Ishara: Pyara saathi'},
+  {word:'گھر',clue:'Ishara: Jahan hum rehte hain'},
+  {word:'محبت',clue:'Ishara: Dil ka khoobsurat jazba'},
+  {word:'روشنی',clue:'Ishara: Andhere ki zid'}
+ ];
+ const $=id=>document.getElementById(id);
+ let level=0,score=0,solved=false;
+ function shuffleWord(word){
+  const a=Array.from(word);
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+  if(a.join('')===word&&a.length>1)a.push(a.shift());
+  return a;
+ }
+ function render(){
+  const p=puzzles[level],mixed=shuffleWord(p.word);solved=false;
+  $('gameLevel').textContent='Level: '+(level+1)+'/'+puzzles.length;
+  $('gameScore').textContent='Score: '+score;
+  $('gameClue').textContent=p.clue;
+  $('gameLetters').textContent=mixed.join('  ');
+  $('gameAnswer').value='';$('gameAnswer').disabled=false;
+  $('gameMessage').textContent='Haroof ko jor kar jawab likhein.';
+  $('gameMessage').style.color='#4b5563';
+  $('gameCheck').disabled=false;$('gameNext').disabled=true;
+  $('gameNext').textContent=level===puzzles.length-1?'Dobara Khelein':'Agla Lafz';
+ }
+ function normalize(s){return s.normalize('NFC').replace(/[\s\u0640\u064B-\u065F\u0670]/g,'').trim();}
+ function check(){
+  if(solved)return;
+  const answer=normalize($('gameAnswer').value);
+  if(!answer){$('gameMessage').textContent='Pehle apna jawab likhein.';return;}
+  if(answer===normalize(puzzles[level].word)){
+   solved=true;score+=10;$('gameScore').textContent='Score: '+score;
+   $('gameMessage').textContent='Shabash! Bilkul sahi jawab! +10';
+   $('gameMessage').style.color='#16834c';
+   $('gameAnswer').disabled=true;$('gameCheck').disabled=true;$('gameNext').disabled=false;
+  }else{
+   $('gameMessage').textContent='Abhi jawab sahi nahi. Dobara koshish karein.';
+   $('gameMessage').style.color='#c03952';
+  }
+ }
+ $('gameCheck').addEventListener('click',check);
+ $('gameAnswer').addEventListener('keydown',e=>{if(e.key==='Enter')check();});
+ $('gameNext').addEventListener('click',()=>{if(level===puzzles.length-1){level=0;score=0;}else level++;render();});
+ render();
+})();
 // Tool panels stay closed on the homepage. Opening a tool keeps the homepage and reveals only that tool.
 (function(){
  const toolIds=['converter','previewCard','resultCard','moreCard','urduKeyboard','typingTest','wordCounter','textCleaner','reverseTool'];
