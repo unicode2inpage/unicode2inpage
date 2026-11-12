@@ -335,7 +335,7 @@ document.getElementById('resetTyping').addEventListener('click',resetTyping);
   englishProofreader:['englishProofreader']
  };
  function closeTools(){
-  toolPanels.forEach(panel=>panel.classList.toggle('tool-closed',!['converter','previewCard','resultCard'].includes(panel.id)));
+  toolPanels.forEach(panel=>panel.classList.add('tool-closed'));
   history.replaceState(null,'',location.pathname);
  }
  function openTool(id){
