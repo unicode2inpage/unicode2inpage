@@ -321,45 +321,6 @@ document.getElementById('resetTyping').addEventListener('click',resetTyping);
   catch(error){output.focus();output.select();alert('Press Ctrl+C to copy.');}
  });
 })();
-// Tool panels stay closed on the homepage. Opening a tool keeps the homepage and reveals only that tool.
-(function(){
- const toolIds=['converter','previewCard','resultCard','moreCard','urduKeyboard','typingTest','wordCounter','textCleaner','reverseTool','englishProofreader'];
- const toolPanels=toolIds.map(id=>document.getElementById(id)).filter(Boolean);
- const groups={
-  converter:['converter','previewCard','resultCard','moreCard'],
-  urduKeyboard:['urduKeyboard'],
-  typingTest:['typingTest'],
-  wordCounter:['wordCounter'],
-  textCleaner:['textCleaner'],
-  reverseTool:['reverseTool'],
-  englishProofreader:['englishProofreader']
- };
- function closeTools(){
-  toolPanels.forEach(panel=>panel.classList.add('tool-closed'));
-  history.replaceState(null,'',location.pathname);
- }
- function openTool(id){
-  const wanted=groups[id]; if(!wanted)return;
-  toolPanels.forEach(panel=>panel.classList.toggle('tool-closed',
-   !wanted.includes(panel.id)));
-  history.replaceState(null,'','#'+id);
-  const panel=document.getElementById(wanted[0]);
-  if(panel)panel.scrollIntoView({behavior:'smooth',block:'start'});
- }
- document.querySelectorAll('[data-tool]').forEach(link=>link.addEventListener('click',event=>{
-  event.preventDefault();openTool(link.dataset.tool);
- }));
- document.getElementById('homeNav')?.addEventListener('click',event=>{
-  event.preventDefault();closeTools();window.scrollTo({top:0,behavior:'smooth'});
- });
- document.querySelector('.brand')?.addEventListener('click',event=>{
-  event.preventDefault();closeTools();window.scrollTo({top:0,behavior:'smooth'});
- });
- document.getElementById('allToolsNav')?.addEventListener('click',event=>{
-  event.preventDefault();closeTools();document.getElementById('allTools')?.scrollIntoView({behavior:'smooth'});
- });
- closeTools();
- const requested=location.hash.slice(1);
- if(groups[requested])openTool(requested);
-})();</script>
+// Homepage keeps all content and all three Unicode-to-InPage boxes visible.
+</script>
 </body></html>
