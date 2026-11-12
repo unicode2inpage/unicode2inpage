@@ -70,13 +70,22 @@ footer{text-align:center;color:#66717d;padding:10px 15px 30px}.hidden{display:no
 .game-check{background:#6d35c8}.game-next{background:#1769aa}
 @media(max-width:850px){.game-zone{grid-column:1/-1}}
 
+
+/* English paragraph proofreader */
+.proofreader-input{direction:ltr;text-align:left;font:16px/1.8 Arial,sans-serif;height:220px}
+.proofreader-preview{direction:ltr;text-align:left;min-height:130px;max-height:360px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;border:1px solid #d5dce8;border-radius:10px;background:#fbfcff;padding:14px;font:16px/1.8 Arial,sans-serif;color:#243247}
+.proofreader-preview mark{background:#ffe08a;color:#7a2e00;border-bottom:2px solid #df8b16;border-radius:3px;padding:0 1px}
+.proofreader-output{direction:ltr;text-align:left;font:16px/1.8 Arial,sans-serif;height:220px;background:#f5fbf7}
+.proofreader-help{font-size:13px;color:#626d7a;line-height:1.7;margin:8px 0}
+.proofreader-count{display:inline-block;background:#fff4d8;color:#80520a;padding:5px 9px;border-radius:7px;font-size:13px;font-weight:700;margin:8px 0}
+
 </style>
 </head>
 <body>
 <header><a class="brand" href="index.html" aria-label="UrduDigitalHub Home"><img src="logo.svg" alt="UrduDigitalHub logo"><div><h1>UrduDigitalHub</h1><p>Urdu Digital Tools & Typing Platform</p></div></a></header>
 <nav><a href="index.html" id="homeNav">⌂ Home</a> | <a href="#allTools" id="allToolsNav">All Tools</a> | <a href="about.html">About Us</a> | <a href="contact.html">Contact Us</a> | <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms &amp; Conditions</a></nav>
 <div class="page-layout"><main><section class="card" id="allTools"><h2>Urdu Online Tools</h2><p class="note">Neeche diye gaye tamam tools isi website par istemal karein.</p><div class="tool-grid">
-<a href="#urduKeyboard" data-tool="urduKeyboard">Urdu Keyboard</a><a href="#typingTest" data-tool="typingTest">Typing Practice & Speed Test</a><a href="#typingTest" data-tool="typingTest">Typing Accuracy Test</a><a href="#wordCounter" data-tool="wordCounter">Word Counter</a><a href="#textCleaner" data-tool="textCleaner">Text Cleaner</a><a href="#reverseTool" data-tool="reverseTool">InPage to Unicode</a><a href="#converter" data-tool="converter">Unicode to InPage</a>
+<a href="#urduKeyboard" data-tool="urduKeyboard">Urdu Keyboard</a><a href="#typingTest" data-tool="typingTest">Typing Practice & Speed Test</a><a href="#typingTest" data-tool="typingTest">Typing Accuracy Test</a><a href="#wordCounter" data-tool="wordCounter">Word Counter</a><a href="#textCleaner" data-tool="textCleaner">Text Cleaner</a><a href="#reverseTool" data-tool="reverseTool">InPage to Unicode</a><a href="#converter" data-tool="converter">Unicode to InPage</a><a href="#englishProofreader" data-tool="englishProofreader">English Proofreader</a>
 </div></section>
 <section class="card" id="converter"><label for="urduText">اپنا اردو Unicode متن یہاں پیسٹ کریں</label><textarea id="urduText" maxlength="11500" placeholder="Yahan apna Urdu Unicode text paste karein..."></textarea><div class="buttons"><button class="convert" id="convertButton" type="button">Convert</button><button class="clear" id="clearButton" type="button">Clear Text</button></div><p class="note">Apna Unicode Urdu text upar paste karein aur Convert button dabayein. Aapka likha hua text convert hone ke baad bhi box mein rahega.</p></section>
 <section class="card" id="previewCard"><label>Preview Font</label><div class="preview" id="preview">Aapka Urdu text yahan Jameel Noori Nastaleeq style mein nazar aayega.</div><p class="note">Preview ke liye Jameel Noori Nastaleeq preferred hai. Agar font installed nahi, to fallback font nazar aa sakta hai.</p></section>
@@ -89,10 +98,25 @@ footer{text-align:center;color:#66717d;padding:10px 15px 30px}.hidden{display:no
 <section class="card" id="wordCounter"><label for="counterInput">Urdu Word & Character Counter</label><textarea id="counterInput" placeholder="Yahan apna matn paste karein..."></textarea><div class="stats"><div><b id="countWords">0</b><span>Words</span></div><div><b id="countChars">0</b><span>Characters</span></div><div><b id="countNoSpace">0</b><span>Without spaces</span></div><div><b id="countLines">0</b><span>Lines</span></div></div></section>
 <section class="card" id="textCleaner"><label for="cleanerInput">Urdu Text Cleaner</label><textarea id="cleanerInput" placeholder="Extra spaces ya khali lines wala matn yahan paste karein..."></textarea><div class="buttons"><button class="convert" id="cleanText">Clean Text</button><button class="copy" id="copyClean">Copy Clean Text</button><button class="clear" id="clearClean">Clear</button></div><p class="note">Extra spaces, be-wajah blank lines aur text ke aaghaz/akhir ki spaces saaf karta hai.</p></section>
 <section class="card" id="reverseTool"><label for="inpageInput">InPage to Unicode Converter</label><textarea id="inpageInput" style="direction:ltr;text-align:left;font:17px/1.8 Consolas,monospace;white-space:pre;overflow-wrap:normal" placeholder="InPage encoded text yahan paste karein..."></textarea><div class="buttons"><button class="convert" id="reverseConvert">Convert to Unicode</button><button class="copy" id="copyUnicode">Copy Unicode</button></div><textarea id="unicodeOutput" readonly placeholder="Unicode Urdu text yahan nazar aayega..."></textarea></section>
-\n<section class="card"><h2>About UrduDigitalHub</h2><p class="note">UrduDigitalHub ka maqsad Urdu users ko asaan, tez aur muft online tools dena hai. Filhal yahan Unicode to InPage converter mojood hai. Mazeed Urdu typing aur text tools marhala-war shamil kiye jayenge. Converter text aapke browser mein process karta hai.</p></section>
+
+<section class="card" id="englishProofreader">
+<label for="proofreaderInput">English Paragraph Grammar &amp; Spell Checker</label>
+<p class="note">Apna English paragraph paste karein. Common spelling aur grammar mistakes highlight hongi, aur neeche corrected paragraph milega.</p>
+<textarea class="proofreader-input" id="proofreaderInput" placeholder="Paste or type your English paragraph here..."></textarea>
+<div class="buttons"><button class="convert" id="proofreaderCheck" type="button">Check Paragraph</button><button class="clear" id="proofreaderClear" type="button">Clear</button></div>
+<div class="proofreader-count" id="proofreaderCount">No check performed yet</div>
+<label>Highlighted Mistakes</label>
+<div class="proofreader-preview" id="proofreaderPreview">Your paragraph with highlighted mistakes will appear here.</div>
+<label style="margin-top:16px" for="proofreaderOutput">Corrected Paragraph</label>
+<textarea class="proofreader-output" id="proofreaderOutput" readonly placeholder="Corrected paragraph will appear here..."></textarea>
+<div class="buttons"><button class="copy" id="proofreaderCopy" type="button">Copy Corrected Paragraph</button></div>
+<p class="proofreader-help">Note: This is a free basic checker. It catches common spelling and grammar mistakes; it is not a complete AI grammar checker, so please review important writing.</p>
+</section>
+
+<section class="card"><h2>About UrduDigitalHub</h2><p class="note">UrduDigitalHub ka maqsad Urdu users ko asaan, tez aur muft online tools dena hai. Filhal yahan Unicode to InPage converter mojood hai. Mazeed Urdu typing aur text tools marhala-war shamil kiye jayenge. Converter text aapke browser mein process karta hai.</p></section>
 </main><aside class="sidebar">
 <div class="ad-slot"><strong>ADVERTISEMENT</strong><span>Ad space 1</span></div><div class="ad-slot"><strong>ADVERTISEMENT</strong><span>Ad space 2</span></div><div class="ad-slot"><strong>ADVERTISEMENT</strong><span>Ad space 3</span></div>
-<div class="sidebar-card"><h2>Quick Tools</h2><div class="social-links"><a href="#urduKeyboard" data-tool="urduKeyboard">Urdu Keyboard</a><a href="#typingTest" data-tool="typingTest">Typing Practice</a><a href="#wordCounter" data-tool="wordCounter">Word Counter</a><a href="#textCleaner" data-tool="textCleaner">Text Cleaner</a><a href="#reverseTool" data-tool="reverseTool">InPage to Unicode</a></div></div>
+<div class="sidebar-card"><h2>Quick Tools</h2><div class="social-links"><a href="#urduKeyboard" data-tool="urduKeyboard">Urdu Keyboard</a><a href="#typingTest" data-tool="typingTest">Typing Practice</a><a href="#wordCounter" data-tool="wordCounter">Word Counter</a><a href="#textCleaner" data-tool="textCleaner">Text Cleaner</a><a href="#reverseTool" data-tool="reverseTool">InPage to Unicode</a><a href="#englishProofreader" data-tool="englishProofreader">English Proofreader</a></div></div>
 
 <div class="sidebar-card game-zone" id="urduWordGame">
 <h2>🎮 Urdu Lafzon Ka Safar</h2>
@@ -194,9 +218,113 @@ document.getElementById('resetTyping').addEventListener('click',resetTyping);
  $('gameNext').addEventListener('click',()=>{if(level===puzzles.length-1){level=0;score=0;}else level++;render();});
  render();
 })();
+
+/* English paragraph proofreader - client-side basic rules */
+(function(){
+ const $=id=>document.getElementById(id);
+ const spelling={
+  teh:'the', recieve:'receive', beleive:'believe', seperate:'separate',
+  definately:'definitely', becuase:'because', freind:'friend', thier:'their',
+  alot:'a lot', occured:'occurred', untill:'until', goverment:'government',
+  enviroment:'environment', adress:'address', writting:'writing',
+  begining:'beginning', tommorow:'tomorrow', wich:'which',
+  langauge:'language', studing:'studying', calender:'calendar',
+  acheive:'achieve', succesful:'successful', responsibile:'responsible',
+  neccessary:'necessary', embarass:'embarrass', recieveing:'receiving',
+  throught:'through', graet:'great', does'nt:"doesn't", didnt:"didn't",
+  wouldnt:"wouldn't", cant:"can't", wont:"won't", isnt:"isn't"
+ };
+ const typoRegexes=Object.keys(spelling).map(w=>new RegExp('\\b'+w.replace(/[.*+?^${}()|[\\]\\]/g,'\\
+// Tool panels stay closed on the homepage.')+'\\b','gi'));
+ const highlightRules=[
+  ...typoRegexes,
+  /\b(\w+)\s+\1\b/gi,
+  /\bi\b/g,
+  /\bI\s+is\b/gi,/\bI\s+are\b/gi,
+  /\b(he|she|it)\s+are\b/gi,/\b(they|we|you)\s+is\b/gi,
+  /\bI\s+has\b/gi,/\b(he|she|it)\s+have\b/gi,
+  /\bdoesn't\s+has\b/gi,/\bdidn't\s+(went|ate|saw|wrote|came|took|did)\b/gi,
+  /\b(a)\s+(?=[aeiou][a-z])/gi,/\b(an)\s+(?=university|unicorn|uniform|useful|user|European)\b/gi,
+  /[ \t]{2,}/g,/\s+([,.!?;:])/g,/([,.!?;:])(?=[A-Za-z])/g
+ ];
+ function preserveCase(found,replacement){
+  if(found.toUpperCase()===found)return replacement.toUpperCase();
+  if(found[0]&&found[0]===found[0].toUpperCase())return replacement[0].toUpperCase()+replacement.slice(1);
+  return replacement;
+ }
+ function correct(text){
+  let v=text,changes=0;
+  function sub(re,repl){v=v.replace(re,(...args)=>{changes++;return typeof repl==='function'?repl(...args):repl;});}
+  for(const [wrong,right] of Object.entries(spelling)){
+   const re=new RegExp('\\b'+wrong.replace(/[.*+?^${}()|[\\]\\]/g,'\\
+// Tool panels stay closed on the homepage.')+'\\b','gi');
+   sub(re,m=>preserveCase(m,right));
+  }
+  sub(/\b(\w+)\s+\1\b/gi,(m,w)=>{changes++;return w;});
+  sub(/\bi\b/g,'I');
+  sub(/\bI\s+is\b/gi,'I am');
+  sub(/\bI\s+are\b/gi,'I am');
+  sub(/\b(he|she|it)\s+are\b/gi,'$1 is');
+  sub(/\b(they|we|you)\s+is\b/gi,'$1 are');
+  sub(/\bI\s+has\b/gi,'I have');
+  sub(/\b(he|she|it)\s+have\b/gi,'$1 has');
+  sub(/\bdoesn't\s+has\b/gi,"doesn't have");
+  const irregular={went:'go',ate:'eat',saw:'see',wrote:'write',came:'come',took:'take',did:'do'};
+  sub(/\bdidn't\s+(went|ate|saw|wrote|came|took|did)\b/gi,(m,verb)=>"didn't "+irregular[verb.toLowerCase()]);
+  sub(/\ba\s+(?=[aeiou][a-z])/gi,'an ');
+  sub(/\ban\s+(?=university|unicorn|uniform|useful|user|European)\b/gi,'a ');
+  sub(/[ \t]{2,}/g,' ');
+  sub(/\s+([,.!?;:])/g,'$1');
+  sub(/([,.!?;:])(?=[A-Za-z])/g,'$1 ');
+  // Capitalize the first letter of each sentence.
+  sub(/(^|[.!?]\s+)([a-z])/g,(m,prefix,letter)=>prefix+letter.toUpperCase());
+  return {text:v,changes};
+ }
+ function markedHtml(text){
+  const ranges=[];
+  for(const re of highlightRules){
+   re.lastIndex=0;let m;
+   while((m=re.exec(text))!==null){
+    if(m[0].length)ranges.push([m.index,m.index+m[0].length]);
+    if(!re.global)break;
+    if(m[0].length===0)re.lastIndex++;
+   }
+  }
+  ranges.sort((a,b)=>a[0]-b[0]||a[1]-b[1]);
+  const merged=[];
+  for(const r of ranges){
+   const last=merged[merged.length-1];
+   if(last&&r[0]<=last[1])last[1]=Math.max(last[1],r[1]);else merged.push(r.slice());
+  }
+  const esc=t=>t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  let html='',pos=0;
+  for(const [a,b] of merged){html+=esc(text.slice(pos,a))+'<mark>'+esc(text.slice(a,b))+'</mark>';pos=b;}
+  html+=esc(text.slice(pos));
+  return html.replace(/\n/g,'<br>');
+ }
+ $('proofreaderCheck').addEventListener('click',()=>{
+  const original=$('proofreaderInput').value;
+  if(!original.trim()){alert('Please paste an English paragraph first.');return;}
+  const result=correct(original);
+  $('proofreaderPreview').innerHTML=markedHtml(original);
+  $('proofreaderOutput').value=result.text;
+  $('proofreaderCount').textContent=result.changes+' possible correction(s) applied. Highlighted text shows detected patterns.';
+ });
+ $('proofreaderClear').addEventListener('click',()=>{
+  $('proofreaderInput').value='';$('proofreaderOutput').value='';
+  $('proofreaderPreview').textContent='Your paragraph with highlighted mistakes will appear here.';
+  $('proofreaderCount').textContent='No check performed yet';
+ });
+ $('proofreaderCopy').addEventListener('click',async()=>{
+  const t=$('proofreaderOutput');
+  if(!t.value){alert('Please check a paragraph first.');return;}
+  try{await navigator.clipboard.writeText(t.value);alert('Corrected paragraph copied.');}
+  catch(e){t.focus();t.select();alert('Press Ctrl+C to copy.');}
+ });
+})();
 // Tool panels stay closed on the homepage. Opening a tool keeps the homepage and reveals only that tool.
 (function(){
- const toolIds=['converter','previewCard','resultCard','moreCard','urduKeyboard','typingTest','wordCounter','textCleaner','reverseTool'];
+ const toolIds=['converter','previewCard','resultCard','moreCard','urduKeyboard','typingTest','wordCounter','textCleaner','reverseTool','englishProofreader'];
  const toolPanels=toolIds.map(id=>document.getElementById(id)).filter(Boolean);
  const groups={
   converter:['converter','previewCard','resultCard','moreCard'],
@@ -204,7 +332,8 @@ document.getElementById('resetTyping').addEventListener('click',resetTyping);
   typingTest:['typingTest'],
   wordCounter:['wordCounter'],
   textCleaner:['textCleaner'],
-  reverseTool:['reverseTool']
+  reverseTool:['reverseTool'],
+  englishProofreader:['englishProofreader']
  };
  function closeTools(){
   toolPanels.forEach(panel=>panel.classList.toggle('tool-closed',!['converter','previewCard','resultCard'].includes(panel.id)));
