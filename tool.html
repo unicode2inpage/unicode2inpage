@@ -79,7 +79,7 @@ footer{text-align:center;color:#66717d;padding:10px 15px 30px}.hidden{display:no
 .proofreader-help{font-size:13px;color:#626d7a;line-height:1.7;margin:8px 0}
 .proofreader-count{display:inline-block;background:#fff4d8;color:#80520a;padding:5px 9px;border-radius:7px;font-size:13px;font-weight:700;margin:8px 0}
 
-body.tool-page #allTools,body.tool-page .sidebar,body.tool-page #allToolsNav{display:none!important}body.tool-page .page-layout{grid-template-columns:minmax(0,1fr);max-width:900px}body.tool-page main>.card{display:none!important}body.tool-page main>.card.active-tool{display:block!important}body.tool-page header{padding:16px}body.tool-page footer{padding-top:20px}
+body.tool-page #converter,body.tool-page #previewCard,body.tool-page #resultCard,body.tool-page #moreCard{display:none!important}body.tool-page header{padding:20px 15px}body.tool-page footer{padding-top:20px}
 </style>
 </head>
 <body>
@@ -366,17 +366,14 @@ document.getElementById('resetTyping').addEventListener('click',resetTyping);
 
 <script>
 (function(){
- const names={converter:'Unicode to InPage Converter',urduKeyboard:'Urdu Online Keyboard',typingTest:'Urdu Typing Practice & Speed Test',wordCounter:'Urdu Word & Character Counter',textCleaner:'Urdu Text Cleaner',reverseTool:'InPage to Unicode Converter',englishProofreader:'English Paragraph Grammar & Spell Checker'};
- const requested=new URLSearchParams(location.search).get('tool')||'converter';
+ const names={urduKeyboard:'Urdu Online Keyboard',typingTest:'Urdu Typing Practice & Speed Test',wordCounter:'Urdu Word & Character Counter',textCleaner:'Urdu Text Cleaner',reverseTool:'InPage to Unicode Converter',englishProofreader:'English Paragraph Grammar & Spell Checker'};
+ const requested=new URLSearchParams(location.search).get('tool')||'wordCounter';
  const allowed=Object.keys(names);
- const selected=allowed.includes(requested)?requested:'converter';
+ const selected=allowed.includes(requested)?requested:'wordCounter';
  document.body.classList.add('tool-page');
- const ids=selected==='converter'?['converter','previewCard','resultCard']: [selected];
- document.querySelectorAll('main>.card').forEach(card=>{card.classList.remove('active-tool');if(ids.includes(card.id))card.classList.add('active-tool');});
  document.title=names[selected]+' | UrduDigitalHub';
- const heading=document.createElement('p');heading.className='note';heading.style.textAlign='center';heading.textContent=names[selected];
- const main=document.querySelector('main');if(main)main.insertBefore(heading,main.firstChild);
- if(selected==='converter'){const extra=document.getElementById('moreCard');if(extra)extra.classList.remove('active-tool');}
+ const target=document.getElementById(selected);
+ if(target) setTimeout(()=>target.scrollIntoView({behavior:'auto',block:'start'}),0);
 })();
 </script>
 </body></html>
