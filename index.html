@@ -126,13 +126,13 @@ document.getElementById('resetTyping').addEventListener('click',resetTyping);
   reverseTool:['reverseTool']
  };
  function closeTools(){
-  toolPanels.forEach(panel=>panel.classList.toggle('tool-closed',!['converter','previewCard'].includes(panel.id)));
+  toolPanels.forEach(panel=>panel.classList.toggle('tool-closed',!['converter','previewCard','resultCard'].includes(panel.id)));
   history.replaceState(null,'',location.pathname);
  }
  function openTool(id){
   const wanted=groups[id]; if(!wanted)return;
   toolPanels.forEach(panel=>panel.classList.toggle('tool-closed',
-   !['converter','previewCard'].includes(panel.id) && !wanted.includes(panel.id)));
+   !['converter','previewCard','resultCard'].includes(panel.id) && !wanted.includes(panel.id)));
   history.replaceState(null,'','#'+id);
   const panel=document.getElementById(wanted[0]);
   if(panel)panel.scrollIntoView({behavior:'smooth',block:'start'});
