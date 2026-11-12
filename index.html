@@ -85,7 +85,7 @@ footer{text-align:center;color:#66717d;padding:10px 15px 30px}.hidden{display:no
 <header><a class="brand" href="index.html" aria-label="UrduDigitalHub Home"><img src="logo.svg" alt="UrduDigitalHub logo"><div><h1>UrduDigitalHub</h1><p>Urdu Digital Tools & Typing Platform</p></div></a></header>
 <nav><a href="index.html" id="homeNav">⌂ Home</a> | <a href="#allTools" id="allToolsNav">All Tools</a> | <a href="about.html">About Us</a> | <a href="contact.html">Contact Us</a> | <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms &amp; Conditions</a></nav>
 <div class="page-layout"><main><section class="card" id="allTools"><h2>Urdu Online Tools</h2><p class="note">Neeche diye gaye tamam tools isi website par istemal karein.</p><div class="tool-grid">
-<a href="#urduKeyboard" data-tool="urduKeyboard">Urdu Keyboard</a><a href="#typingTest" data-tool="typingTest">Typing Practice & Speed Test</a><a href="#typingTest" data-tool="typingTest">Typing Accuracy Test</a><a href="#wordCounter" data-tool="wordCounter">Word Counter</a><a href="#textCleaner" data-tool="textCleaner">Text Cleaner</a><a href="#reverseTool" data-tool="reverseTool">InPage to Unicode</a><a href="#converter" data-tool="converter">Unicode to InPage</a><a href="#englishProofreader" data-tool="englishProofreader">English Proofreader</a>
+<a href="tool.html?tool=urduKeyboard">Urdu Keyboard</a><a href="tool.html?tool=typingTest">Typing Practice &amp; Speed Test</a><a href="tool.html?tool=typingTest">Typing Accuracy Test</a><a href="tool.html?tool=wordCounter">Word Counter</a><a href="tool.html?tool=textCleaner">Text Cleaner</a><a href="tool.html?tool=reverseTool">InPage to Unicode</a><a href="tool.html?tool=converter">Unicode to InPage</a><a href="tool.html?tool=englishProofreader">English Proofreader</a>
 </div></section>
 <section class="card" id="converter"><label for="urduText">اپنا اردو Unicode متن یہاں پیسٹ کریں</label><textarea id="urduText" maxlength="11500" placeholder="Yahan apna Urdu Unicode text paste karein..."></textarea><div class="buttons"><button class="convert" id="convertButton" type="button">Convert</button><button class="clear" id="clearButton" type="button">Clear Text</button></div><p class="note">Apna Unicode Urdu text upar paste karein aur Convert button dabayein. Aapka likha hua text convert hone ke baad bhi box mein rahega.</p></section>
 <section class="card" id="previewCard"><label>Preview Font</label><div class="preview" id="preview">Aapka Urdu text yahan Jameel Noori Nastaleeq style mein nazar aayega.</div><p class="note">Preview ke liye Jameel Noori Nastaleeq preferred hai. Agar font installed nahi, to fallback font nazar aa sakta hai.</p></section>
@@ -116,7 +116,7 @@ footer{text-align:center;color:#66717d;padding:10px 15px 30px}.hidden{display:no
 <section class="card"><h2>About UrduDigitalHub</h2><p class="note">UrduDigitalHub ka maqsad Urdu users ko asaan, tez aur muft online tools dena hai. Filhal yahan Unicode to InPage converter mojood hai. Mazeed Urdu typing aur text tools marhala-war shamil kiye jayenge. Converter text aapke browser mein process karta hai.</p></section>
 </main><aside class="sidebar">
 <div class="ad-slot"><strong>ADVERTISEMENT</strong><span>Ad space 1</span></div><div class="ad-slot"><strong>ADVERTISEMENT</strong><span>Ad space 2</span></div><div class="ad-slot"><strong>ADVERTISEMENT</strong><span>Ad space 3</span></div>
-<div class="sidebar-card"><h2>Quick Tools</h2><div class="social-links"><a href="#urduKeyboard" data-tool="urduKeyboard">Urdu Keyboard</a><a href="#typingTest" data-tool="typingTest">Typing Practice</a><a href="#wordCounter" data-tool="wordCounter">Word Counter</a><a href="#textCleaner" data-tool="textCleaner">Text Cleaner</a><a href="#reverseTool" data-tool="reverseTool">InPage to Unicode</a><a href="#englishProofreader" data-tool="englishProofreader">English Proofreader</a></div></div>
+<div class="sidebar-card"><h2>Quick Tools</h2><div class="social-links"><a href="tool.html?tool=urduKeyboard">Urdu Keyboard</a><a href="tool.html?tool=typingTest">Typing Practice</a><a href="tool.html?tool=wordCounter">Word Counter</a><a href="tool.html?tool=textCleaner">Text Cleaner</a><a href="tool.html?tool=reverseTool">InPage to Unicode</a><a href="tool.html?tool=englishProofreader">English Proofreader</a></div></div>
 
 <div class="sidebar-card game-zone" id="urduWordGame">
 <h2>🎮 Urdu Lafzon Ka Safar</h2>
@@ -341,7 +341,7 @@ document.getElementById('resetTyping').addEventListener('click',resetTyping);
  function openTool(id){
   const wanted=groups[id]; if(!wanted)return;
   toolPanels.forEach(panel=>panel.classList.toggle('tool-closed',
-   !['converter','previewCard','resultCard'].includes(panel.id) && !wanted.includes(panel.id)));
+   !wanted.includes(panel.id)));
   history.replaceState(null,'','#'+id);
   const panel=document.getElementById(wanted[0]);
   if(panel)panel.scrollIntoView({behavior:'smooth',block:'start'});
