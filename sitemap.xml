@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://urdudigitalhub.github.io/</loc></url>
+  <url><loc>https://urdudigitalhub.github.io/tool.html?tool=converter</loc></url>
+  <url><loc>https://urdudigitalhub.github.io/tool.html?tool=reverseTool</loc></url>
+  <url><loc>https://urdudigitalhub.github.io/tool.html?tool=urduKeyboard</loc></url>
+  <url><loc>https://urdudigitalhub.github.io/tool.html?tool=typingTest</loc></url>
+  <url><loc>https://urdudigitalhub.github.io/tool.html?tool=wordCounter</loc></url>
+  <url><loc>https://urdudigitalhub.github.io/tool.html?tool=textCleaner</loc></url>
   <url><loc>https://urdudigitalhub.github.io/about.html</loc></url>
   <url><loc>https://urdudigitalhub.github.io/contact.html</loc></url>
   <url><loc>https://urdudigitalhub.github.io/privacy.html</loc></url>
